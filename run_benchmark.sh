@@ -2,7 +2,7 @@
 # Benchmark: corre cada versión 10 veces por cada N, guarda resultados en CSV
 
 REPS=10
-SIZES="500 1000 1500 2000 3000"
+SIZES="1000 2000 3000"
 OUT="resultados.csv"
 
 echo "version,n,rep,tiempo_ms" > $OUT
@@ -17,7 +17,7 @@ compilar() {
     g++ -O3    -o matmul_transpose matmul_transpose.cpp
     g++ -O3    -o matmul_pthreads  matmul_pthreads.cpp -lpthread
     g++ -O3    -o matmul_fork      matmul_fork.cpp
-}
+    }
 
 
 medir() {
