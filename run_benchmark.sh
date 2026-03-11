@@ -2,20 +2,23 @@
 # Benchmark: corre cada versión 10 veces por cada N, guarda resultados en CSV
 
 REPS=10
-SIZES="100 200 400 600 800 1000"
+SIZES="500 1000 1500 2000 3000"
 OUT="resultados.csv"
 
 echo "version,n,rep,tiempo_ms" > $OUT
 
 compilar() {
-    echo "Compilando..."
-    g++ -O0 -o matmul_seq        matmul_seq.cpp
-    g++ -O3 -o matmul_seq_O3     matmul_seq.cpp
-    g++ -O3 -o matmul_transpose  matmul_transpose.cpp
-    g++ -O3 -o matmul_pthreads   matmul_pthreads.cpp -lpthread
-    g++ -O3 -o matmul_fork       matmul_fork.cpp
-    echo "Compilado OK"
+    g++ -O0    -o matmul_O0    matmul_seq.cpp
+    g++ -O1    -o matmul_O1    matmul_seq.cpp
+    g++ -O2    -o matmul_O2    matmul_seq.cpp
+    g++ -O3    -o matmul_O3    matmul_seq.cpp
+    g++ -Os    -o matmul_Os    matmul_seq.cpp
+    g++ -Ofast -o matmul_Ofast matmul_seq.cpp
+    g++ -O3    -o matmul_transpose matmul_transpose.cpp
+    g++ -O3    -o matmul_pthreads  matmul_pthreads.cpp -lpthread
+    g++ -O3    -o matmul_fork      matmul_fork.cpp
 }
+
 
 medir() {
     local bin=$1
@@ -31,10 +34,14 @@ medir() {
 
 compilar
 echo "Corriendo benchmarks..."
-medir matmul_seq        "seq_O0"
-medir matmul_seq_O3     "seq_O3"
-medir matmul_transpose  "transpose_O3"
-medir matmul_pthreads   "pthreads_O3"
-medir matmul_fork       "fork_O3"
+medir matmul_O0        "seq_O0"
+medir matmul_O1        "seq_O1"
+medir matmul_O2        "seq_O2"
+medir matmul_O3        "seq_O3"
+medir matmul_Os        "seq_Os"
+medir matmul_Ofast     "seq_Ofast"
+medir matmul_transpose "transpose"
+medir matmul_pthreads  "pthreads"
+medir matmul_fork      "fork"
 
 echo "Listo. Resultados en $OUT"
