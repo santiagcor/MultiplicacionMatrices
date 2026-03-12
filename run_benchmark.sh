@@ -1,7 +1,7 @@
 #!/bin/bash
 # Benchmark: corre cada versión 10 veces por cada N, guarda resultados en CSV
 
-REPS=10
+REPS=5
 SIZES="1000 2000 3000"
 OUT="resultados.csv"
 
