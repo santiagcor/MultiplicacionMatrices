@@ -1,8 +1,7 @@
 #include <iostream>
 #include <vector>
-#include <cstdlib>
-#include <ctime>
 #include <chrono>
+#include <cstdlib>
 using namespace std;
 using Matriz = vector<vector<int>>;
 
@@ -14,8 +13,6 @@ Matriz crearAleatoria(int n) {
     return M;
 }
 
-// Transpone B: BT[j][k] = B[k][j]
-// Ventaja: acceso fila x fila en ambas matrices → menos cache misses
 Matriz transponer(const Matriz& B, int n) {
     Matriz BT(n, vector<int>(n));
     for (int i = 0; i < n; i++)
@@ -27,7 +24,6 @@ Matriz transponer(const Matriz& B, int n) {
 Matriz multiplicarTranspuesta(const Matriz& A, const Matriz& B, int n) {
     Matriz BT = transponer(B, n);
     Matriz C(n, vector<int>(n, 0));
-    // Ahora accedemos A[i][k] y BT[j][k]: ambos recorridos fila x fila
     for (int i = 0; i < n; i++)
         for (int j = 0; j < n; j++)
             for (int k = 0; k < n; k++)
@@ -44,9 +40,9 @@ int main(int argc, char* argv[]) {
     Matriz A = crearAleatoria(n);
     Matriz B = crearAleatoria(n);
 
-    auto inicio = chrono::high_resolution_clock::now();
+    auto inicio = chrono::steady_clock::now();
     Matriz C = multiplicarTranspuesta(A, B, n);
-    auto fin   = chrono::high_resolution_clock::now();
+    auto fin = chrono::steady_clock::now();
 
     double ms = chrono::duration<double, milli>(fin - inicio).count();
     cout << ms << endl;

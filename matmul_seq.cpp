@@ -1,8 +1,7 @@
 #include <iostream>
 #include <vector>
-#include <cstdlib>
-#include <ctime>
 #include <chrono>
+#include <cstdlib>
 using namespace std;
 using Matriz = vector<vector<int>>;
 
@@ -28,15 +27,15 @@ int main(int argc, char* argv[]) {
     int n = atoi(argv[1]);
     if (n <= 0) { cerr << "n debe ser positivo\n"; return 1; }
 
-    srand(42); // semilla fija para resultados reproducibles
+    srand(42);
     Matriz A = crearAleatoria(n);
     Matriz B = crearAleatoria(n);
 
-    auto inicio = chrono::high_resolution_clock::now();
+    auto inicio = chrono::steady_clock::now();
     Matriz C = multiplicar(A, B, n);
-    auto fin   = chrono::high_resolution_clock::now();
+    auto fin = chrono::steady_clock::now();
 
     double ms = chrono::duration<double, milli>(fin - inicio).count();
-    cout << ms << endl; // imprime solo el tiempo (para benchmarking)
+    cout << ms << endl;
     return 0;
 }
