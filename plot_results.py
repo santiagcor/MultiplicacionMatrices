@@ -1,3 +1,5 @@
+import matplotlib
+matplotlib.use("Agg")  # Sin GUI, solo guarda PNG - necesario en WSL
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
@@ -33,7 +35,7 @@ colores = {
     "fork":      "orange"
 }
 
-# FIGURA 1 ─ 4 subgraficas
+# FIGURA 1 - 4 subgraficas
 fig, axes = plt.subplots(2, 2, figsize=(14, 10))
 fig.suptitle("Analisis de Rendimiento - Multiplicacion de Matrices",
              fontsize=14, fontweight="bold")
@@ -94,7 +96,7 @@ plt.savefig("graficas_rendimiento.png", dpi=150, bbox_inches="tight")
 print("Guardado: graficas_rendimiento.png")
 plt.close()
 
-# FIGURA 2 ─ Barras comparativas a n=3000
+# FIGURA 2 - Barras comparativas a n=3000
 N_BAR        = 3000
 orden_vers   = ["seq_O0","seq_O1","seq_O2","seq_O3","seq_Os","seq_Ofast","transpose","pthreads","fork"]
 etiquetas    = ["-O0","-O1","-O2","-O3","-Os","-Ofast","transpose","pthreads","fork"]
